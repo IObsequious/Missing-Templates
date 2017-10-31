@@ -1,0 +1,17 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <Name>Generic Immutable Collection (Internal)</Name>
+    <Description>Adds an internal generic immutable collection to the project</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>GenericCollection.png</Icon>
+    <DefaultName>Collection</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">GenericCollection.cs</ProjectItem>
+    <CustomParameters>
+      <CustomParameter Name="$accessibility$" Value="internal"/>
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

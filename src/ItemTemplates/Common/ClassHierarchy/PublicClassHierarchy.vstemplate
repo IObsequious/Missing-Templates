@@ -1,0 +1,17 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <Name>ClassHierarchy (Pubolic)</Name>
+    <DefaultName>ClassHierarchy.cs</DefaultName>
+    <Description>Adds public  Class Hierarchy to the project</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>1000</SortOrder>
+    <Icon>ClassHierarchy.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">ClassHierarchy.cs</ProjectItem>
+    <CustomParameters>
+      <CustomParameter Name="$accessibility$" Value="public"/>
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

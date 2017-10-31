@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VisualStudioVersion>15.0</VisualStudioVersion>
+    <MinimumVisualStudioVersion>$(VisualStudioVersion)</MinimumVisualStudioVersion>
+    <RepositoryRootDirectory>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\'))</RepositoryRootDirectory>
+    <OutputPath>$(RepositoryRootDirectory)Binaries\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <!--<BaseIntermediateOutputPath>$(RepositoryRootDirectory)Binaries\Obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>-->
+    <IntermediateOutputPath>$(RepositoryRootDirectory)Binaries\Obj\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <DisableStandardFrameworkResolution>false</DisableStandardFrameworkResolution>
+    <AssemblySearchPaths>
+      {CandidateAssemblyFiles};
+      $(ReferencePath);
+      {HintPathFromItem};
+      {TargetFrameworkDirectory};
+      {Registry:$(FrameworkRegistryBase),$(TargetFrameworkVersion),$(AssemblyFoldersSuffix)$(AssemblyFoldersExConditions)};
+      {AssemblyFolders};
+      {GAC};
+      {RawFileName};
+      $(OutputPath)
+    </AssemblySearchPaths>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <AutoIncrementPackageRevision>true</AutoIncrementPackageRevision>
+
+    <Company Condition="'$(Company)'==''">Ollon, LLC</Company>
+    <Copyright Condition="'$(Copyright)'==''">© 2017 Ollon, LLC. All Rights Reserved.</Copyright>
+    <Description Condition="'$(Description)'==''">$(AssemblyName)</Description>
+    <Product Condition="'$(Product)'==''">$(AssemblyName)</Product>
+
+    <AssemblyTitle Condition="'$(AssemblyTitle)'==''">$(AssemblyName)</AssemblyTitle>
+    <NetralLanguage Condition="'$(NetralLanguage)'==''">en-US</NetralLanguage>
+
+    <PackageVersion     >15.2.26430.6</PackageVersion>
+    <AssemblyVersion    >$(PackageVersion)</AssemblyVersion>
+    <AssemblyInfoVersion>$(PackageVersion)-Preview</AssemblyInfoVersion>
+    <AssemblyFileVersion>$(PackageVersion)</AssemblyFileVersion>
+
+  </PropertyGroup>
+  
+  
+</Project>

@@ -1,0 +1,24 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>VSPackage Project (Enhanced)</Name>
+    <Description>Visual Studio Package Project</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>VSPackageProject</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>VSPackage.png</Icon>
+    <PreviewImage>VSPackage.png</PreviewImage>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="VSPackageProject.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Strings.cs">Strings.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Packaging\VSPackage.cs">VSPackage.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="VSPackage.resx">VSPackage.resx</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
