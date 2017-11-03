@@ -32,4 +32,8 @@
       <ProjectItem ReplaceParameters="true" SubType="Code">App.xaml.cs</ProjectItem>
     </Project>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateWizard.LibraryProjectTemplateWizard</FullClassName>
+  </WizardExtension>
 </VSTemplate>

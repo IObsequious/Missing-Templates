@@ -1,0 +1,117 @@
+﻿<ui:DialogWindow
+    x:Class="Microsoft.VisualStudio.PlatformUI.SolutionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Microsoft.VisualStudio.PlatformUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    Width="597"
+    Height="389"
+    Background="{DynamicResource BackgroundBrushKey}"
+    Foreground="{DynamicResource ForegroundBrushKey}"
+    mc:Ignorable="d">
+    <ui:DialogWindow.Resources>
+        <SolidColorBrush x:Key="BackgroundBrushKey">#FF2D2D30</SolidColorBrush>
+        <SolidColorBrush x:Key="ForegroundBrushKey">#FFF1F1F1</SolidColorBrush>
+        <SolidColorBrush x:Key="CaretBrushKey">#EEE2E2E2</SolidColorBrush>
+        <SolidColorBrush x:Key="BorderBrushKey">#3F3F46</SolidColorBrush>
+        <Style x:Key="FooterGridStyle" TargetType="{x:Type Grid}" />
+        <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundBrushKey}" />
+            <Setter Property="Margin" Value="30,20,20,10" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Light" />
+        </Style>
+        <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource CaretBrushKey}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushKey}" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="25" />
+            </Style.Setters>
+        </Style>
+    </ui:DialogWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="45" />
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="{DynamicResource ForegroundBrushKey}" Style="{StaticResource TitleTextStyle}">Create New Solution</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0">
+                Solution Name
+            </Label>
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding SolutionName}" />
+            <Label Grid.Row="1" Grid.Column="0">
+                Solution Directory
+            </Label>
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding SolutionDirectory}" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="Auto"
+                Margin="3,6,0,6"
+                Click="OnBrowseFolderButtonClicked"
+                Content="..." />
+        </Grid>
+        <Grid
+            Grid.Row="2"
+            Opacity="1"
+            Style="{DynamicResource FooterGridStyle}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Margin="10"
+                    Padding="15,4"
+                    Click="OnOkButtonClicked"
+                    Content="_OK"
+                    IsDefault="True" />
+                <Button
+                    Margin="10"
+                    Padding="15,4"
+                    Click="OnCancelButtonClicked"
+                    Content="_Cancel"
+                    IsCancel="True" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</ui:DialogWindow>

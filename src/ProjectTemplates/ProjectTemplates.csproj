@@ -4,6 +4,9 @@
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,7 +38,7 @@
     <None Include="ProjectTemplates.ico" />
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="ProjectTemplates.vstemplate" />
+    <None Include="ProjectTemplates.vstemplate" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -55,7 +58,6 @@
     <VSTemplate Include="Projects\ClassLibrary\ClassLibrary.vstemplate">
       <OutputSubPath>Missing Templates\.NET Framework</OutputSubPath>
     </VSTemplate>
-    <None Include="Projects\VSIXProject\source.extension.vsixmanifest" />
     <None Include="Projects\VSIXProject\VSIXProject.csproj" />
     <None Include="Projects\VSIXProject\VSIXProject.png" />
     <VSTemplate Include="Projects\VSIXProject\VSIXProject.vstemplate">

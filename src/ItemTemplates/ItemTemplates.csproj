@@ -4,6 +4,9 @@
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -39,6 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Common\VsWPFInfrastructure\Class.cs" />
+    <None Include="Common\VsWPFInfrastructure\Factory.cs" />
+    <None Include="Common\VsWPFInfrastructure\Infrastructure.cs" />
+    <None Include="Common\VsWPFInfrastructure\Model.cs" />
+    <None Include="Common\VsWPFInfrastructure\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </None>
+    <None Include="Common\VsWPFInfrastructure\ViewModel.cs" />
+    <None Include="Common\WPFInfrastructure\Class.cs" />
+    <None Include="Common\WPFInfrastructure\Factory.cs" />
+    <None Include="Common\WPFInfrastructure\Infrastructure.cs" />
+    <None Include="Common\WPFInfrastructure\Model.cs" />
+    <None Include="Common\WPFInfrastructure\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </None>
+    <None Include="Common\WPFInfrastructure\ViewModel.cs" />
     <None Include="Common\StaticClass\Class.cs" />
     <None Include="Common\Struct\Struct.cs" />
     <None Include="Common\Enum\Enum.cs" />
@@ -50,6 +69,9 @@
     <None Include="Common\Class\Class.cs" />
     <None Include="Common\ClassHierarchy\ClassHierarchy.cs" />
     <None Include="Common\GenericCollection\GenericCollection.cs" />
+    <None Include="Common\DialogWindow\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </None>
     <Compile Include="Common\IStrongList.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,11 +87,19 @@
     </VSTemplate>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Common\VsWPFInfrastructure\DialogWindow.png" />
+    <VSTemplate Include="Common\VsWPFInfrastructure\VsWPFInfrastructure.vstemplate">
+      <OutputSubPath>Missing Templates\WPF</OutputSubPath>
+    </VSTemplate>
+    <Content Include="Common\WPFInfrastructure\Window.png" />
+    <VSTemplate Include="Common\WPFInfrastructure\WPFInfrastructure.vstemplate">
+      <OutputSubPath>Missing Templates\WPF</OutputSubPath>
+    </VSTemplate>
     <VSTemplate Include="Common\WPFResourceDictionary\WPFResourceDictionary.vstemplate">
-      <OutputSubPath>Missing Templates</OutputSubPath>
+      <OutputSubPath>Missing Templates\WPF</OutputSubPath>
     </VSTemplate>
     <VSTemplate Include="Common\WPFUserControl\WPFUserControl.vstemplate">
-      <OutputSubPath>Missing Templates</OutputSubPath>
+      <OutputSubPath>Missing Templates\WPF</OutputSubPath>
     </VSTemplate>
     <VSTemplate Include="Common\Struct\PublicStruct.vstemplate">
       <OutputSubPath>Missing Templates\Public</OutputSubPath>
@@ -90,6 +120,9 @@
       <OutputSubPath>Missing Templates\Internal</OutputSubPath>
     </VSTemplate>
     <Content Include="Common\Class\Class.png" />
+    <VSTemplate Include="Common\DialogWindow\DialogWindow.vstemplate">
+      <OutputSubPath>Missing Templates\Extensibility</OutputSubPath>
+    </VSTemplate>
     <Content Include="Common\Enum\Enum.png" />
     <VSTemplate Include="Common\Interface\PublicInterface.vstemplate">
       <OutputSubPath>Missing Templates\Public</OutputSubPath>
@@ -136,6 +169,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\DialogWindow\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\WPFInfrastructure\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\VsWPFInfrastructure\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

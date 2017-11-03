@@ -517,6 +517,24 @@ SOFTWARE.</LicenseFileText>
         <Reference Include="stdole">
           <EmbedInteropTypes>False</EmbedInteropTypes>
         </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0">
+          <EmbedInteropTypes>False</EmbedInteropTypes>
+        </Reference>
 
 
         <!-- Core -->
@@ -532,6 +550,8 @@ SOFTWARE.</LicenseFileText>
         <Reference Include="Microsoft.VisualStudio.Threading" />
         <Reference Include="Microsoft.VisualStudio.Utilities" />
         <Reference Include="Microsoft.VisualStudio.Validation" />
+
+        <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface" />
       </ItemGroup>
     </When>
   </Choose>

@@ -16,7 +16,7 @@ namespace Microsoft.VisualStudio.Packaging
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true, RegisterUsing = RegistrationMethod.CodeBase)]
     [Guid(Strings.PackageGuid)]
-    public sealed class VisualStudioPackage : AsyncPackage
+    public sealed class $ExtensionName$Package : AsyncPackage
     {
 
         protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)

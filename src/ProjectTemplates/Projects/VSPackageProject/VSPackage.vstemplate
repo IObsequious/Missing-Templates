@@ -1,6 +1,6 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>VSPackage Project (Enhanced)</Name>
+    <Name>VSPackage Project</Name>
     <Description>Visual Studio Package Project</Description>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>
@@ -17,8 +17,12 @@
   <TemplateContent>
     <Project File="VSPackageProject.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Strings.cs">Strings.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="Packaging\VSPackage.cs">VSPackage.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Packaging\$ExtensionName$Package.cs">VSPackage.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="VSPackage.resx">VSPackage.resx</ProjectItem>
     </Project>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateWizard.VSIXProjectTemplateWizard</FullClassName>
+  </WizardExtension>
 </VSTemplate>

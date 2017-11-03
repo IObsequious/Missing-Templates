@@ -1,10 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IncludeWpfReferences>false</IncludeWpfReferences>
+    <IncludeRoslynReferences>false</IncludeRoslynReferences>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{$guid1$}</ProjectGuid>
+    <AssemblyName>$AssemblyName$</AssemblyName>
+    <RootNamespace>$DefaultNamespace$</RootNamespace>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
+  </PropertyGroup>
   <PropertyGroup Label="Globals">
     <HighEntropyVA>true</HighEntropyVA>
     <Deterministic>true</Deterministic>
     <EnableGlobbing>false</EnableGlobbing>
-    <ImportVSSDKTargets>true</ImportVSSDKTargets>
+    <ImportVSSDKTargets>false</ImportVSSDKTargets>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <DeployExtension>true</DeployExtension>
     <DeployVSTemplates>true</DeployVSTemplates>
@@ -22,17 +42,6 @@
     <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
     <StartArguments>/RootSuffix Exp</StartArguments>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup Label="Configuration">
-    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{$guid1$}</ProjectGuid>
-    <AssemblyName>$safeprojectname$</AssemblyName>
-    <RootNamespace>Microsoft.VisualStudio</RootNamespace>
-    <OutputType>Library</OutputType>
-    <TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="source.extension.vsixmanifest" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

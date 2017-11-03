@@ -72,7 +72,6 @@ namespace ItemTemplates
         void CopyTo(T[] array);
         void CopyTo(T[] array, int arrayIndex);
         void ForEach(Action<T> action);
-
         
 
         

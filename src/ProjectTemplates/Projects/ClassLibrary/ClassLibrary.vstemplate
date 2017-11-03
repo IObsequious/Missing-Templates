@@ -15,7 +15,11 @@
   </TemplateData>
   <TemplateContent>
     <Project File="ClassLibrary.csproj" ReplaceParameters="true">
-	<Folder Name="Properties" TargetFolderName="Properties"/>
+      <Folder Name="Properties" TargetFolderName="Properties"/>
     </Project>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateWizard.LibraryProjectTemplateWizard</FullClassName>
+  </WizardExtension>
 </VSTemplate>
