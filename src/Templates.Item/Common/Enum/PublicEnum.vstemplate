@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Enum (Public)</Name>
+    <Description>Adds a public enumeration to the project</Description>
+    <Icon>Enum.png</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <DefaultName>Enum.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+
+    <ProjectItem ReplaceParameters="true">Enum.cs</ProjectItem>
+    
+    <CustomParameters>
+      <CustomParameter Name="$accessibility$" Value="public"/>
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

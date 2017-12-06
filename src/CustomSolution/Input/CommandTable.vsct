@@ -17,19 +17,42 @@
     </Menus>
     <Groups>
       <Group guid="guidPackageGroups" id="IDG_SOLUTION" priority="0x0000" />
+      <Group guid="guidPackageGroups" id="IDG_OPEN_OUTPUT" priority="0x0000" />
     </Groups>
     <Buttons>
       <Button guid="guidPackageCmdSet" id="cmdidNewSolution" priority="0x0000" type="Button">
         <Icon guid="ImageCatalogGuid" id="Solution"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
         <Strings>
           <ButtonText>New Solution</ButtonText>
         </Strings>
-      </Button> 
+      </Button>
+      <Button guid="guidPackageCmdSet" id="cmdidOpenOutput" priority="0x0000" type="Button">
+        <Icon guid="ImageCatalogGuid" id="Open"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <Strings>
+          <ButtonText>Open Output Directory</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
   </Commands>
 
   <CommandPlacements>
+    <CommandPlacement guid="guidPackageCmdSet" id="cmdidOpenOutput" priority="0x0001">
+      <Parent guid="guidPackageGroups" id="IDG_OPEN_OUTPUT"/>
+    </CommandPlacement>
+
+
+    <CommandPlacement guid="guidPackageGroups" id="IDG_OPEN_OUTPUT" priority="0x0001">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+    </CommandPlacement>
+
+    
+    
+    
     <CommandPlacement guid="guidPackageCmdSet" id="cmdidNewSolution" priority="0x0001">
       <Parent guid="guidPackageGroups" id="IDG_SOLUTION"/>
     </CommandPlacement>
@@ -50,10 +73,12 @@
 
     <GuidSymbol name="guidPackageGroups" value="{B0412A25-EDCE-41A2-8F87-9A3B562AA858}">
       <IDSymbol name="IDG_SOLUTION" value="0x0001"/>
+      <IDSymbol name="IDG_OPEN_OUTPUT" value="0x0002"/>
     </GuidSymbol>
     
     <GuidSymbol name="guidPackageCmdSet" value="{11479980-4e78-473f-8fce-7988501f8914}">
       <IDSymbol name="cmdidNewSolution" value="0x0100" />
+      <IDSymbol name="cmdidOpenOutput" value="0x0101" />
     </GuidSymbol>
 
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!--
+      This target will include just about everything the project references in the vsix. Not a requirement, but certainly
+      a huge relief when you keep getting errors about missing dlls while debugging extensions. This target effectively ensures
+      that those errors will stop showing up; however, the resulting vsix can be pretty bloated when compared to the out of box 
+      vsix the Visual Studio Sdk produces.
+  -->
+  <Target Name="IncludeNuGetResolvedAssets" DependsOnTargets="ResolveNuGetPackageAssets" Condition="'$(IncludeNuGetResolvedAssets)' == 'true'">
+    <ItemGroup>
+      <_ReferenceCopyLocalPathsWithPotentialInclusions Include="@(ReferenceCopyLocalPaths)"/>
+
+      <VSIXCopyLocalReferenceSourceItem Include="@(_ReferenceCopyLocalPathsWithPotentialInclusions)"
+        Condition="'%(_ReferenceCopyLocalPathsWithPotentialInclusions.Extension)' != '.pdb'">
+        <ForceIncludeInVsix>true</ForceIncludeInVsix>
+        <Private>true</Private>
+      </VSIXCopyLocalReferenceSourceItem>
+    </ItemGroup>
+  </Target>
+
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" />
+
+  <Target Name="VSIXIdentifierProjectOutputGroup" Condition="'$(CreateVsixContainer)' == 'false'" />
+
+  <Target Name="VSIXNameProjectOutputGroup" Condition="'$(CreateVsixContainer)' == 'false'" />
+
+  
+  
+  <!-- 
+  
+      This needs to override the target authored in the VSSDK script imported above. 
+      If left as originally written, the CreatePkgDef target will never run. This 
+      is most likely a result of the drastically difference build process in a Microsoft.NET.Sdk
+      project when compared to a Legacy C# project (the Visual Studio Sdk more or less assumes
+      the user will build with a Legacy C# project). The only difference between the target
+      below and the original one is the following: AfterTargets="AfterBuild"
+  -->
+  <Target Name="GeneratePkgDef" Inputs="$(TargetPath)" Outputs="$(IntermediateOutputPath)$(TargetName).pkgdef" Condition="'$(GeneratePkgDefFile)'=='true'" AfterTargets="AfterBuild">
+
+    <Message Text="Creating intermediate PkgDef file." />
+
+    <CreatePkgDef AssemblyToProcess="$(TargetPath)" ProductVersion="$(VisualStudioVersion)" OutputFile="$(IntermediateOutputPath)$(TargetName).latest.pkgdef" UseCodebase="$(UseCodebase)" ReferencedAssemblies="@(ReferencePath)" />
+    <CopyIfChanged Condition="Exists('$(IntermediateOutputPath)$(TargetName).latest.pkgdef')" SourceFile="$(IntermediateOutputPath)$(TargetName).latest.pkgdef" DestinationFile="$(IntermediateOutputPath)$(TargetName).pkgdef" />
+
+    <!-- If the CTO file was changed, touch the pkgdef file to cause a re-merge -->
+    <Touch Files="$(IntermediateOutputPath)$(TargetName).pkgdef" Condition="'$(CTOFileHasChanged)'=='true' AND Exists('$(IntermediateOutputPath)$(TargetName).pkgdef')" />
+
+    <ItemGroup>
+      <FileWrites Include="$(IntermediateOutputPath)$(TargetName).pkgdef" Condition="Exists('$(IntermediateOutputPath)$(TargetName).pkgdef')" />
+      <FileWrites Include="$(IntermediateOutputPath)$(TargetName).latest.pkgdef" Condition="Exists('$(IntermediateOutputPath)$(TargetName).latest.pkgdef')" />
+    </ItemGroup>
+  </Target>
+  
+</Project>

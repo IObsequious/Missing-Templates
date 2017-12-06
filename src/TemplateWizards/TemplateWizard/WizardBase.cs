@@ -15,25 +15,24 @@ namespace Microsoft.VisualStudio.TemplateWizard
         protected EnvDTE80.DTE2 AutomationObject { get; private set; }
 
 
-
         public override void BeforeOpeningFile(ProjectItem projectItem)
         {
-            
+
         }
 
         public override void ProjectFinishedGenerating(Project project)
         {
-            
+
         }
 
         public override void ProjectItemFinishedGenerating(ProjectItem projectItem)
         {
-            
+
         }
 
         public override void RunFinished()
         {
-            
+
         }
 
         public sealed override void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams)

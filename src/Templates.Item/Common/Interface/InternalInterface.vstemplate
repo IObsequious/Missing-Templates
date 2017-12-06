@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Interface (Internal)</Name>
+    <Description>Adds a internal Interfaceeration to the project</Description>
+    <Icon>Interface.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <DefaultName>Interface.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+
+    <ProjectItem ReplaceParameters="true">Interface.cs</ProjectItem>
+    
+    <CustomParameters>
+      <CustomParameter Name="$accessibility$" Value="internal"/>
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

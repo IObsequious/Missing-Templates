@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Abstract Class (Internal)</Name>
+    <Description>Add a Internal Abstract Class to the project</Description>
+    <Icon>Class.png</Icon>
+    <TemplateID>c7438141-1d2e-4986-b480-e4300cf15bda</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <DefaultName>Class.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+
+    <ProjectItem ReplaceParameters="true">Class.cs</ProjectItem>
+    
+    <CustomParameters>
+      <CustomParameter Name="$accessibility$" Value="internal"/>
+      <CustomParameter Name="$modifiers$" Value="abstract"/>
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

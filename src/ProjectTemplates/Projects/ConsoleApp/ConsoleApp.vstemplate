@@ -11,12 +11,11 @@
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>ConsoleApp.png</Icon>
+    <Icon>z.png</Icon>
   </TemplateData>
   <TemplateContent>
     <Project File="ConsoleApp.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties" />
     </Project>
   </TemplateContent>
   <WizardExtension>

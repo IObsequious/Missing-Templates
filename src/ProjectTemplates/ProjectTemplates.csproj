@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectTemplates</RootNamespace>
     <AssemblyName>ProjectTemplates</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
@@ -31,14 +31,7 @@
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="AssemblyInfo.cs" />
-    <None Include="Class1.cs" />
     <None Include="Projects\WPFApplication\Settings.settings" />
-    <None Include="ProjectTemplate.csproj" />
-    <None Include="ProjectTemplates.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ProjectTemplates.vstemplate" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -51,7 +44,7 @@
     <None Include="Projects\ClassLibrary\ClassLibrary.csproj" />
     <None Include="Projects\ClassLibrary\ClassLibrary.png" />
     <None Include="Projects\ConsoleApp\ConsoleApp.csproj" />
-    <None Include="Projects\ConsoleApp\ConsoleApp.png" />
+    <None Include="Projects\ConsoleApp\z.png" />
     <VSTemplate Include="Projects\ConsoleApp\ConsoleApp.vstemplate">
       <OutputSubPath>Missing Templates\.NET Framework</OutputSubPath>
     </VSTemplate>
@@ -70,17 +63,13 @@
     <None Include="Projects\VSPackageProject\VSPackageProject.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Projects\VSPackageProject\VSPackage.resx">
-      <DependentUpon>VSPackage.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="Projects\VSPackageProject\VSPackage.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Projects\ConsoleApp\Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Projects\WPFApplication\Generic.xaml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Projects\WPFApplication\Generic.xaml" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="Projects\WPFApplication\WPFApplication.vstemplate">
@@ -95,6 +84,17 @@
     <None Include="Projects\WPFApplication\Resources.resx" />
     <None Include="Projects\WPFApplication\Resources.Designer.cs" />
     <None Include="Projects\WPFApplication\Settings.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Projects\NuGetPackage\NuGetPackage.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <VSTemplate Include="Projects\NuGetPackage\NuGetPackage.vstemplate">
+      <OutputSubPath>Missing Templates\.NET Framework</OutputSubPath>
+    </VSTemplate>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Projects\NuGetPackage\NuGetPackage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup>
+    <VSTemplate>
+      <OutputSubpath>Missing Templates</OutputSubpath>
+    </VSTemplate>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{D2229FBA-8035-41E9-BE35-FEFB9F5D3218}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Templates.Project</RootNamespace>
+    <AssemblyName>Templates.Project</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <GeneratePkgDefFile>false</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CreateVsixContainer>false</CreateVsixContainer>
+    <DeployExtension>false</DeployExtension>
+    <DeployVSTemplates>false</DeployVSTemplates>
+    <CopyVsixManifestToOutput>false</CopyVsixManifestToOutput>
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.CoreUtility">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <VSTemplate Include="Projects\ClassLibrary\ClassLibrary.vstemplate" />
+    <VSTemplate Include="Projects\NuGetPackage\NuGetPackage.vstemplate" />
+    <VSTemplate Include="Projects\WPFApplication\WPFApplication.vstemplate" />
+    <VSTemplate Include="Projects\VSIXProject\VSIXProject.vstemplate" />
+    <VSTemplate Include="Projects\ConsoleApp\ConsoleApp.vstemplate" />
+    <None Include="Projects\ClassLibrary\ClassLibrary.csproj" />
+    <None Include="Projects\ClassLibrary\ClassLibrary.png" />
+    <None Include="Projects\ConsoleApp\ConsoleApp.csproj" />
+    <None Include="Projects\NuGetPackage\NuGetPackage.csproj" />
+    <None Include="Projects\NuGetPackage\NuGetPackage.png" />
+    <None Include="Projects\VSIXProject\VSIXProject.csproj" />
+    <None Include="Projects\VSIXProject\VSIXProject.png" />
+    <None Include="Projects\VSPackageProject\Strings.cs" />
+    <None Include="Projects\VSPackageProject\VSPackage.cs" />
+    <None Include="Projects\VSPackageProject\VSPackage.png" />
+    <None Include="Projects\VSPackageProject\VSPackage.resx" />
+    <None Include="Projects\VSPackageProject\VSPackageProject.csproj" />
+    <None Include="Projects\WPFApplication\App.xaml" />
+    <None Include="Projects\WPFApplication\App.xaml.cs" />
+    <None Include="Projects\WPFApplication\AssemblyInfo.cs" />
+    <None Include="Projects\WPFApplication\Generic.xaml" />
+    <None Include="Projects\WPFApplication\MainWindow.xaml" />
+    <None Include="Projects\WPFApplication\MainWindow.xaml.cs" />
+    <None Include="Projects\WPFApplication\Resources.Designer.cs" />
+    <None Include="Projects\WPFApplication\Resources.resx" />
+    <None Include="Projects\WPFApplication\Settings.Designer.cs" />
+    <None Include="Projects\WPFApplication\Settings.settings" />
+    <None Include="Projects\WPFApplication\WPFApplication.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Projects\VSPackageProject\VSPackage.vstemplate" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup>
+    <VSTemplate>
+      <OutputSubpath>Missing Templates</OutputSubpath>
+    </VSTemplate>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{7BC7213D-6F0F-4389-A78A-D6C683AE3EF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Templates.Item</RootNamespace>
+    <AssemblyName>Templates.Item</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <GeneratePkgDefFile>false</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CreateVsixContainer>false</CreateVsixContainer>
+    <DeployExtension>false</DeployExtension>
+    <DeployVSTemplates>false</DeployVSTemplates>
+    <CopyVsixManifestToOutput>false</CopyVsixManifestToOutput>
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.CoreUtility">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <VSTemplate Include="Common\AbstractClass\InternalAbstractClass.vstemplate" />
+    <VSTemplate Include="Common\AbstractClass\PublicAbstractClass.vstemplate" />
+    <VSTemplate Include="Common\ClassHierarchy\InternalClassHierarchy.vstemplate" />
+    <VSTemplate Include="Common\ClassHierarchy\PublicClassHierarchy.vstemplate" />
+    <VSTemplate Include="Common\GenericCollection\InternalGenericCollection.vstemplate" />
+    <VSTemplate Include="Common\GenericCollection\PublicGenericCollection.vstemplate" />
+    <VSTemplate Include="Common\WPFUserControl\WPFUserControl.vstemplate" />
+    <VSTemplate Include="Common\WPFResourceDictionary\WPFResourceDictionary.vstemplate" />
+    <VSTemplate Include="Common\WPFInfrastructure\WPFInfrastructure.vstemplate" />
+    <VSTemplate Include="Common\VsWPFInfrastructure\VsWPFInfrastructure.vstemplate" />
+    <VSTemplate Include="Common\StaticClass\InternalStaticClass.vstemplate" />
+    <VSTemplate Include="Common\StaticClass\PublicStaticClass.vstemplate" />
+    <VSTemplate Include="Common\Struct\InternalStruct.vstemplate" />
+    <VSTemplate Include="Common\Struct\PublicStruct.vstemplate" />
+    <VSTemplate Include="Common\Class\InternalClass.vstemplate" />
+    <VSTemplate Include="Common\Class\PublicClass.vstemplate" />
+    <VSTemplate Include="Common\DialogWindow\DialogWindow.vstemplate" />
+    <None Include="Common\AbstractClass\Class.cs" />
+    <None Include="Common\AbstractClass\Class.png" />
+    <None Include="Common\ClassHierarchy\ClassHierarchy.cs" />
+    <None Include="Common\ClassHierarchy\ClassHierarchy.ico" />
+    <None Include="Common\Class\Class.cs" />
+    <None Include="Common\Class\Class.png" />
+    <None Include="Common\DialogWindow\DialogWindow.xaml" />
+    <None Include="Common\DialogWindow\DialogWindow.xaml.cs" />
+    <None Include="Common\Enum\Enum.cs" />
+    <None Include="Common\Enum\Enum.png" />
+    <None Include="Common\Enum\InternalEnum.vstemplate" />
+    <None Include="Common\Enum\PublicEnum.vstemplate" />
+    <None Include="Common\GenericCollection\GenericCollection.cs" />
+    <None Include="Common\GenericCollection\GenericCollection.png" />
+    <None Include="Common\Interface\Interface.cs" />
+    <None Include="Common\Interface\Interface.ico" />
+    <None Include="Common\Interface\InternalInterface.vstemplate" />
+    <None Include="Common\Interface\PublicInterface.vstemplate" />
+    <None Include="Common\StaticClass\Class.cs" />
+    <None Include="Common\StaticClass\Class.png" />
+    <None Include="Common\Struct\Struct.cs" />
+    <None Include="Common\Struct\Struct.png" />
+    <None Include="Common\VsWPFInfrastructure\Class.cs" />
+    <None Include="Common\VsWPFInfrastructure\DialogWindow.png" />
+    <None Include="Common\VsWPFInfrastructure\Factory.cs" />
+    <None Include="Common\VsWPFInfrastructure\Infrastructure.cs" />
+    <None Include="Common\VsWPFInfrastructure\Model.cs" />
+    <None Include="Common\VsWPFInfrastructure\View.xaml" />
+    <None Include="Common\VsWPFInfrastructure\View.xaml.cs" />
+    <None Include="Common\VsWPFInfrastructure\ViewModel.cs" />
+    <None Include="Common\WPFInfrastructure\Class.cs" />
+    <None Include="Common\WPFInfrastructure\Factory.cs" />
+    <None Include="Common\WPFInfrastructure\Infrastructure.cs" />
+    <None Include="Common\WPFInfrastructure\Model.cs" />
+    <None Include="Common\WPFInfrastructure\View.xaml" />
+    <None Include="Common\WPFInfrastructure\View.xaml.cs" />
+    <None Include="Common\WPFInfrastructure\ViewModel.cs" />
+    <None Include="Common\WPFInfrastructure\Window.png" />
+    <None Include="Common\WPFResourceDictionary\ResourceDictionary1.xaml" />
+    <None Include="Common\WPFResourceDictionary\ResourceDictionary1.xaml.cs" />
+    <None Include="Common\WPFUserControl\UserControl1.xaml" />
+    <None Include="Common\WPFUserControl\UserControl1.xaml.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

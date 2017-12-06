@@ -118,4 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BuildCmd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\build.cmd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CleanCmd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\clean.cmd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ContributorCovenant" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\docs\contributorcovenant.md;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DirectoryBuildProps" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\src\directory.build.props;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DirectoryBuildTargets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\src\directory.build.targets;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Editorconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\editorconfig.editorconfig;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gitignore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\gitignore.gitignore;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LicenseTxt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\license.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReadmeMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\readme.md;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RebuildCmd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\rebuild.cmd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RestoreCmd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\restore.cmd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ShellCmd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\shell.cmd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SolutionRulesRuleSet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\build\rulesets\solutionrules.ruleset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StrongNameKeySNK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\build\strong name keys\35mssharedlib1024.snk;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Tfignore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\tfignore.tfignore;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

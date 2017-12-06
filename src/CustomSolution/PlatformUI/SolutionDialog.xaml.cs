@@ -20,9 +20,18 @@ namespace Microsoft.VisualStudio.PlatformUI
     /// </summary>
     public partial class SolutionDialog : DialogWindow
     {
+        private readonly NewSolutionInfoViewModel _viewModel;
+
         public SolutionDialog()
         {
             InitializeComponent();
+
+        }
+        internal SolutionDialog(NewSolutionInfoViewModel viewModel)
+        {
+            _viewModel = viewModel;
+            InitializeComponent();
+            _mainGrid.DataContext = _viewModel;
         }
 
         private void OnOkButtonClicked(object sender, RoutedEventArgs e)
@@ -40,9 +49,17 @@ namespace Microsoft.VisualStudio.PlatformUI
 
         private void OnBrowseFolderButtonClicked(object sender, RoutedEventArgs e)
         {
+            using (System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                fbd.Description = "Choose a directory for the solution repository.";
+                fbd.RootFolder = Environment.SpecialFolder.MyComputer;
+                fbd.ShowNewFolderButton = true;
 
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    TextBoxRepositoryDirectory.SetValue(TextBox.TextProperty, fbd.SelectedPath);
+                }
+            }
         }
     }
 }

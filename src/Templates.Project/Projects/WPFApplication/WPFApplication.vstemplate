@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name Package="{b3bae735-386c-4030-8329-ef48eeda4036}" ID="4650" />
+    <Description Package="{b3bae735-386c-4030-8329-ef48eeda4036}" ID="4651" />
+    <Icon Package="{b3bae735-386c-4030-8329-ef48eeda4036}" ID="4602" />
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>3.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>WpfApp</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <PromptForSaveOnCreation>false</PromptForSaveOnCreation>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>false</CreateInPlace>
+    <AppIdFilter>blend</AppIdFilter>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="WPFApplication.csproj" ReplaceParameters="true">
+      <Folder Name="Models" TargetFolderName="Models"/>
+      <Folder Name="Resources" TargetFolderName="Resources"/>
+      <Folder Name="Themes" TargetFolderName="Themes"/>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Themes\Generic.xaml">Generic.xaml</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Properties\Resources.resx">Resources.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Properties\Settings.settings">Settings.settings</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\Settings.Designer.cs">Settings.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="!blend" SubType="Code" OpenOrder="20">MainWindow.xaml.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" OpenOrder="10">MainWindow.xaml</ProjectItem>
+      <ProjectItem ReplaceParameters="true">App.xaml</ProjectItem>
+      <ProjectItem ReplaceParameters="true" SubType="Code">App.xaml.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateWizard.LibraryProjectTemplateWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

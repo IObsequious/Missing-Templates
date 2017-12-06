@@ -24,7 +24,7 @@
   <PropertyGroup>
     <HighEntropyVA>true</HighEntropyVA>
     <Deterministic>true</Deterministic>
-    <ImportVSSDKTargets>fasle</ImportVSSDKTargets>
+    <ImportVSSDKTargets>false</ImportVSSDKTargets>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <DeployExtension>false</DeployExtension>
     <DeployVSTemplates>false</DeployVSTemplates>
@@ -35,23 +35,38 @@
     <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
     <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
     <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
-    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+    <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
   </PropertyGroup>
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
     <StartArguments>/RootSuffix Exp</StartArguments>
-  </PropertyGroup>
+  </PropertyGroup>-->
   <ItemGroup>
+    <Compile Include="..\Shared\GlobalServices.cs">
+      <Link>GlobalServices.cs</Link>
+    </Compile>
+    <Compile Include="Framework\HexUtilities.cs" />
+    <Compile Include="Framework\IClrStrongName.cs" />
+    <Compile Include="Framework\IClrStrongNameUsingIntPtr.cs" />
+    <Compile Include="Framework\StrongNameKeyInfo.cs" />
+    <Compile Include="Framework\StrongNameUtilities.cs" />
     <Compile Include="Input\CommandHandler.cs" />
     <Compile Include="Input\MenuCommandGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MenuCommandGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Input\SolutionFileFactory.cs" />
     <Compile Include="Packaging\CustomSolutionPackage.cs" />
+    <Compile Include="PlatformUI\NewSolutionInfo.cs" />
     <Compile Include="PlatformUI\SolutionDialog.xaml.cs">
       <DependentUpon>SolutionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VSPackage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSPackage.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -59,12 +74,15 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MenuCommandGenerator.cs</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="Resources\License.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
       <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <VSCTCompile Include="Input\CommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
@@ -72,16 +90,45 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Resources\editorconfig.editorconfig" />
+    <EmbeddedResource Include="Resources\gitignore.gitignore" />
+    <EmbeddedResource Include="Resources\tfignore.tfignore" />
+    <EmbeddedResource Include="Resources\build.cmd" />
+    <EmbeddedResource Include="Resources\clean.cmd" />
+    <EmbeddedResource Include="Resources\readme.md" />
+    <EmbeddedResource Include="Resources\rebuild.cmd" />
+    <EmbeddedResource Include="Resources\restore.cmd" />
+    <EmbeddedResource Include="Resources\shell.cmd" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="PlatformUI\SolutionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <Import Project="..\Shared\GlobalServices\GlobalServices.projitems" Label="Shared" />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\src\Directory.Build.props" />
+    <EmbeddedResource Include="Resources\src\Directory.Build.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\build\rulesets\SolutionRules.ruleset" />
+    <EmbeddedResource Include="Resources\build\strong name keys\35MSSharedLib1024.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\docs\archive\build.ps1" />
+    <EmbeddedResource Include="Resources\docs\archive\clean.ps1" />
+    <EmbeddedResource Include="Resources\docs\archive\Imports.targets" />
+    <EmbeddedResource Include="Resources\docs\archive\rebuild.ps1" />
+    <EmbeddedResource Include="Resources\docs\archive\References.targets" />
+    <EmbeddedResource Include="Resources\docs\archive\restore.ps1" />
+    <EmbeddedResource Include="Resources\docs\archive\Settings.props" />
+    <EmbeddedResource Include="Resources\docs\archive\solutionhelper.psm1" />
+    <EmbeddedResource Include="Resources\docs\archive\VsSDK.targets" />
+    <EmbeddedResource Include="Resources\docs\ContributorCovenant.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

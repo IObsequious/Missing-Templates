@@ -32,7 +32,9 @@ namespace Microsoft.VisualStudio.Input
     {
         public const int IDM_SOLUTION = 1;
         public const int IDG_SOLUTION = 1;
+        public const int IDG_OPEN_OUTPUT = 2;
         public const int cmdidNewSolution = 256;
+        public const int cmdidOpenOutput = 257;
     }
     /// <summary>
     /// Represents the <see cref="Commands"/> class.
@@ -40,6 +42,7 @@ namespace Microsoft.VisualStudio.Input
     internal partial class Commands
     {
         public static CommandID cmdidNewSolutionCommandId = new CommandID(GuidSymbols.guidPackageCmdSet, IDSymbols.cmdidNewSolution);
+        public static CommandID cmdidOpenOutputCommandId = new CommandID(GuidSymbols.guidPackageCmdSet, IDSymbols.cmdidOpenOutput);
     }
     /// <summary>
     ///  Serves as the abstract base for classes that handle commands.
@@ -58,6 +61,14 @@ namespace Microsoft.VisualStudio.Input
         /// <param name="sender">The <see cref="object"/> initiating the command.</param>
         /// <param name="e">The <see cref="EventArgs"/> that will ultimately handle the command.</param>
         public virtual void OnExecuteCmdidNewSolution(object sender, EventArgs e)
+        {
+        }
+        /// <summary>
+        /// When overridden in a derived class, handles the cmdidOpenOutput command.
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/> initiating the command.</param>
+        /// <param name="e">The <see cref="EventArgs"/> that will ultimately handle the command.</param>
+        public virtual void OnExecuteCmdidOpenOutput(object sender, EventArgs e)
         {
         }
     }
@@ -80,6 +91,7 @@ namespace Microsoft.VisualStudio.Input
         public static void RegisterCommands(OleMenuCommandService service, CommandHandler handler)
         {
             RegisterCommand(service, Commands.cmdidNewSolutionCommandId, handler.OnExecuteCmdidNewSolution);
+            RegisterCommand(service, Commands.cmdidOpenOutputCommandId, handler.OnExecuteCmdidOpenOutput);
         }
         /// <summary>
         /// Registers a command.

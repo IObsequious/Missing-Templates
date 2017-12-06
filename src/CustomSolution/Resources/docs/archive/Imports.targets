@@ -1,0 +1,44 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+
+  <Target Name="LinkVSSDKEmbeddableAssemblies" DependsOnTargets="ResolveReferences" AfterTargets="ResolveReferences" Condition="'$(EmbedInteropTypes)' == 'true'">
+    <ItemGroup>
+      <ReferencePath Condition="
+              '%(FileName)' == 'Microsoft.VisualStudio.Setup.Configuration.Interop'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Imaging.Interop.15.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Embeddable'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.10.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.11.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.12.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Feedback.Interop.12.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.ProjectSystem.Interop'
+           or '%(FileName)' == 'NuGet.VisualStudio'
+           or '%(FileName)' == 'stdole'
+           or '%(FileName)' == 'microsoft.visualstudio.designer.interfaces'
+           or '%(FileName)' == 'EnvDTE80'
+           or '%(FileName)' == 'EnvDTE90'
+           or '%(FileName)' == 'EnvDTE100'
+           or '%(FileName)' == 'Microsoft.VisualStudio.CommandBars'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.14.1.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.14.2.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Embeddable'
+              ">
+        <EmbedInteropTypes>true</EmbedInteropTypes>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(ImportVSSDKTargets)' == 'true'" />
+  
+  
+
+
+</Project>
