@@ -1,0 +1,22 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <IncludeCommonReferences>true</IncludeCommonReferences>
+  </PropertyGroup>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+
+
+  <PropertyGroup>
+    <TargetFramework>$TargetFramework$</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>$DefaultNamespace$</RootNamespace>
+    <AssemblyName>$AssemblyName$</AssemblyName>
+  </PropertyGroup>
+
+
+
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

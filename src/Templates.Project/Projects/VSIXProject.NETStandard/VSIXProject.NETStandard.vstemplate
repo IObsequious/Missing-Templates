@@ -1,26 +1,27 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>VSPackage Project</Name>
-    <Description>Visual Studio Package Project</Description>
+    <Name>VSIX Project (NETStandard)</Name>
+    <Description>VSIX Project (NETStandard)</Description>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>
     </ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>VSPackageProject</DefaultName>
+    <DefaultName>VSIXProject</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
-    <LocationField>Enabled</LocationField>
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>VSPackage.png</Icon>
-    <PreviewImage>VSPackage.png</PreviewImage>
+    <Icon>VSIXProject.png</Icon>
+    <PreviewImage>VSIXProject.png</PreviewImage>
   </TemplateData>
   <TemplateContent>
-    <Project File="VSPackageProject.csproj" ReplaceParameters="true">
-      <Folder Name="Packaging" TargetFolderName="Packaging" />
+    <Project File="VSIXProject.NETStandard.csproj" ReplaceParameters="true">
+      <!--
+        An element must be written here, otherwise the template doesnt work.
+      -->
+      <Folder Name="Properties" TargetFolderName="Properties" />
     </Project>
   </TemplateContent>
   <WizardExtension>
     <Assembly>TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Assembly>
-    <FullClassName>Microsoft.VisualStudio.TemplateWizard.VSPackageTemplateWizard</FullClassName>
+    <FullClassName>Microsoft.VisualStudio.TemplateWizard.VSIXProjectTemplateWizard</FullClassName>
   </WizardExtension>
 </VSTemplate>

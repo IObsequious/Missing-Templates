@@ -93,15 +93,15 @@ Copyright (c) Ollon, LLC. All rights reserved.
   <!--                                 -->
   <!--   Generate InternalsVisibleTo   -->
   <!--                                 -->
-  
+
   <Target Name="GenerateAssemblyInfoFile" Inputs="$(MSBuildThisFileFullPath)" Outputs="$(GeneratedAssemblyInfoFile)" DependsOnTargets="PrepareForBuild">
 
     <WriteCodeFragment AssemblyAttributes="@(AssemblyVersionAttribute)" Language="$(Language)" OutputFile="$(GeneratedAssemblyInfoFile)">
       <Output TaskParameter="OutputFile" ItemName="Compile" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
-    
-    
+
+
   </Target>
 
 
@@ -153,12 +153,52 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <_VSIXAsset>
       <Visible>false</Visible>
     </_VSIXAsset>
-    
+
   </ItemDefinitionGroup>
-  
-  
+
+  <Target Name="LinkVSSDKEmbeddableAssemblies" AfterTargets="ResolveReferences" BeforeTargets="FindReferenceAssembliesForReferences">
+    <ItemGroup>
+      <ReferencePath Condition="
+              '%(FileName)' == 'Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Imaging.Interop.15.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Setup.Configuration.Interop'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Embeddable'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.10.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.11.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.12.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.12.1.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.TextManager.Interop.11.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.TextManager.Interop.12.0'
+           or '%(FileName)' == 'Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.TextManager.Interop.14.2.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.TextManager.Interop.15.1.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.Feedback.Interop.12.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.VisualStudio.ProjectSystem.Interop'
+           or '%(FileName)' == 'NuGet.VisualStudio'
+           or '%(FileName)' == 'stdole'
+           or '%(FileName)' == 'microsoft.visualstudio.designer.interfaces'
+           or '%(FileName)' == 'EnvDTE80'
+           or '%(FileName)' == 'EnvDTE90'
+           or '%(FileName)' == 'EnvDTE100'
+           or '%(FileName)' == 'Microsoft.VisualStudio.CommandBars'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.10.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.11.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.14.0.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.14.1.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Interop.14.2.DesignTime'
+           or '%(FileName)' == 'Microsoft.Internal.VisualStudio.Shell.Embeddable'
+              ">
+        <EmbedInteropTypes>true</EmbedInteropTypes>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+
+
   <Import Project="$(VsToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(ImportVSSDKTargets)' == 'true'" />
-  
+
   <PropertyGroup Condition="'$(CreateVsixContainer)' == 'true'">
     <GetVsixSourceItemsDependsOn>IncludeNuGetResolvedAssets;$(GetVsixSourceItemsDependsOn)</GetVsixSourceItemsDependsOn>
   </PropertyGroup>
@@ -173,8 +213,6 @@ Copyright (c) Ollon, LLC. All rights reserved.
     </ItemGroup>
   </Target>
 
-  
-
   <Target Name="VSIXIdentifierProjectOutputGroup" Condition="'$(CreateVsixContainer)' == 'false'" />
   <Target Name="VSIXNameProjectOutputGroup" Condition="'$(CreateVsixContainer)' == 'false'" />
 
@@ -184,96 +222,7 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
 
-  <PropertyGroup>
-    
-    <VsixIdentity>38dc6dec17654ce39c061ddb64f1062c</VsixIdentity>
-    <VsixVersion>$(AssemblyBuildVersion)</VsixVersion>
-    <VsixPublisher>$(Company)</VsixPublisher>
-    <VsixTags>VisualStudio VSIX</VsixTags>
-    <VsixDisplayName>$(SolutionName)</VsixDisplayName>
-    <VsixDescription>$(SolutionName) Extension for Microsoft Visual Studio</VsixDescription>
-
-    <LicenseFilePath>$(MSBuildProjectDirectory)\License.txt</LicenseFilePath>
-    <VsixManifestFilePath>$(MSBuildProjectDirectory)\source.extension.vsixmanifest</VsixManifestFilePath>
-    <BeforeFindSourceVsixManifestDependsOn>
-      CreateVsixAssetsFromProjectReferences;
-      WriteSourceExtensionVsixManifestFile;
-    </BeforeFindSourceVsixManifestDependsOn>
-  </PropertyGroup>
-  
-
-  <Target Name="CreateVsixAssetsFromProjectReferences" Condition="'@(ProjectReference)' != ''">
-    <CreateItem Condition="'%(ProjectReference.Asset)' != ''" Include="%(ProjectReference.Asset)" AdditionalMetadata="ProjectName=%(ProjectReference.Name);Id=%(ProjectReference.Name)">
-      <Output TaskParameter="Include" ItemName="_VSIXAsset" />
-    </CreateItem>
-  </Target>
-  
-  <Target Name="WriteSourceExtensionVsixManifestFile" Condition="'@(_VSIXAsset)' != ''">
-
-    <PropertyGroup>
-      <LicenseFileText>Copyright Ã‚Â© $([System.DateTime]::Now.Year) $(Company). All Rights Reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</LicenseFileText>
-    </PropertyGroup>
-
-  <ItemGroup>
-    <_VSIXManifestFileLines Include="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" />
-    <_VSIXManifestFileLines Include="&lt;PackageManifest Version=&quot;2.0.0&quot; xmlns=&quot;http://schemas.microsoft.com/developer/vsx-schema/2011&quot; xmlns:d=&quot;http://schemas.microsoft.com/developer/vsx-schema-design/2011&quot;&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;Metadata&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;Identity Id=&quot;$(VsixIdentity)&quot; Version=&quot;$(VsixVersion)&quot; Language=&quot;en-US&quot; Publisher=&quot;$(VsixPublisher)&quot; /&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;DisplayName&gt;$(VsixDisplayName)&lt;/DisplayName&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;Description&gt;$(VsixDescription)&lt;/Description&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;License&gt;License.txt&lt;/License&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;Tags&gt;$(VsixTags)&lt;/Tags&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;/Metadata&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;Installation&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;InstallationTarget Id=&quot;Microsoft.VisualStudio.Community&quot; Version=&quot;[15.0]&quot; /&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;/Installation&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;Dependencies&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;Dependency Id=&quot;Microsoft.Framework.NDP&quot; DisplayName=&quot;Microsoft .NET Framework&quot; d:Source=&quot;Manual&quot; Version=&quot;[4.6,)&quot; /&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;/Dependencies&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;Assets&gt;" />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'Analyzer'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.Analyzer&quot;        d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;|%(_VSIXAsset.ProjectName)|&quot; /&gt; " />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'Assembly'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.Assembly&quot;        d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;|%(_VSIXAsset.ProjectName)%3BAssemblyName|&quot;               AssemblyName=&quot;|%(_VSIXAsset.ProjectName)|&quot; /&gt; " />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'ItemTemplate'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.ItemTemplate&quot;    d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;ItemTemplates&quot;                                            TargetPath=&quot;|%(_VSIXAsset.ProjectName)%3BTemplateProjectOutputGroup|&quot; d:VsixSubPath=&quot;ItemTemplates&quot; /&gt; " />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'ProjectTemplate'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.ProjectTemplate&quot; d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;ProjectTemplates&quot;                                         TargetPath=&quot;|%(_VSIXAsset.ProjectName)%3BTemplateProjectOutputGroup|&quot; d:VsixSubPath=&quot;ProjectTemplates&quot; /&gt;" />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'MefComponent'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.MefComponent&quot;    d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;|%(_VSIXAsset.ProjectName)|&quot; /&gt;" />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'ToolboxControl'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.ToolboxControl&quot;  d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;|%(_VSIXAsset.ProjectName)%3BPkgDefProjectOutputGroup|&quot; /&gt;" />
-    <_VSIXManifestFileLines Condition="'%(_VSIXAsset.ProjectName)' == 'VsPackage'" Include="    &lt;Asset Id=&quot;Microsoft.VisualStudio.VsPackage&quot;       d:Source=&quot;Project&quot; d:ProjectName=&quot;%(_VSIXAsset.ProjectName)&quot; Path=&quot;|%(_VSIXAsset.ProjectName)%3BPkgDefProjectOutputGroup|&quot; /&gt; " />
-    <_VSIXManifestFileLines Include="  &lt;/Assets&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;Prerequisites&gt;" />
-    <_VSIXManifestFileLines Include="    &lt;Prerequisite Id=&quot;Microsoft.VisualStudio.Component.CoreEditor&quot; Version=&quot;[15.0,16.0)&quot; DisplayName=&quot;Visual Studio core editor&quot; /&gt;" />
-    <_VSIXManifestFileLines Include="  &lt;/Prerequisites&gt;" />
-    <_VSIXManifestFileLines Include="&lt;/PackageManifest&gt;" />
-  </ItemGroup>
-
-  <WriteLinesToFile File="$(VsixManifestFilePath)" Lines="@(_VSIXManifestFileLines)" Overwrite="yes" />
-  <WriteLinesToFile File="$(VsixManifestFilePath)" Lines="$(LicenseFileText)" Overwrite="yes" />
-
-  </Target>
-
-  <Target Name="GenerateSourceExtensionVsixManifestFile" Condition="'$(DeployExtension)' == 'true'" BeforeTargets="FindSourceVsixManifest" DependsOnTargets="$(BeforeFindSourceVsixManifestDependsOn)" />
-  
-  <!--                -->
-
-
-<Target Name="CreateDebuggableModule" AfterTargets="AfterBuild" Condition="'@(PSModuleManifest)' != ''">
+  <Target Name="CreateDebuggableModule" AfterTargets="AfterBuild" Condition="'@(PSModuleManifest)' != ''">
     <PropertyGroup>
       <ModuleFolder>$(OutputPath)\$(AssemblyName)\</ModuleFolder>
       <DestinationModuleManifest>$(ModuleFolder)$(AssemblyName).psd1</DestinationModuleManifest>
@@ -293,7 +242,7 @@ SOFTWARE.</LicenseFileText>
       <_ModuleManifestFileLines Include="}" />
     </ItemGroup>
     <MakeDir Directories="$(ModuleFolder)" />
-    <Copy SourceFiles="@(CopyFiles)" DestinationFolder="$(ModuleFolder)" OverwriteReadOnlyFiles="true" />    
+    <Copy SourceFiles="@(CopyFiles)" DestinationFolder="$(ModuleFolder)" OverwriteReadOnlyFiles="true" />
     <WriteLinesToFile Lines="@(_ModuleManifestFileLines)" File="$(DestinationModuleManifest)" Overwrite="true" />
   </Target>
 
@@ -302,7 +251,7 @@ SOFTWARE.</LicenseFileText>
   <PropertyGroup>
     <IncludeCommonReferences Condition="'$(IncludeCommonReferences)' == ''">true</IncludeCommonReferences>
   </PropertyGroup>
-  
+
   <ItemDefinitionGroup>
     <Reference>
       <Private>false</Private>
@@ -321,7 +270,59 @@ SOFTWARE.</LicenseFileText>
       </PropertyGroup>
     </When>
   </Choose>
-  
+
+  <Choose>
+    <When Condition="'$(IncludeProjectSystemReferences)' == 'true'">
+
+      <ItemGroup>
+        <Reference Include="Microsoft.CSharp" />
+        <!--<Reference Include="System.Composition" />-->
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Collections.Immutable"/>
+        <Reference Include="NuGet.Versioning" />
+        <Reference Include="Microsoft.VisualStudio.VSHelp" />
+        <Reference Include="Microsoft.VisualStudio.VSHelp80" />
+        <Reference Include="Microsoft.Build" />
+        <Reference Include="Microsoft.Build.Framework" />
+        <Reference Include="Microsoft.VisualStudio.Shell.15.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Framework" />
+        <Reference Include="Microsoft.VisualStudio.Threading" />
+        <Reference Include="Microsoft.VisualStudio.Utilities" />
+        <Reference Include="Microsoft.VisualStudio.Validation" />
+        <Reference Include="System.Threading.Tasks.Dataflow"/>
+        <Reference Include="Microsoft.VisualStudio.ProjectSystem"  />
+        <Reference Include="Microsoft.VisualStudio.ProjectSystem.VS" />
+        <Reference Include="Microsoft.VisualStudio.ProjectSystem.Implementation"  />
+        <Reference Include="Microsoft.VisualStudio.ProjectSystem.VS.Implementation" />
+        <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0" />
+        <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.1.DesignTime">
+          <EmbedInteropTypes>true</EmbedInteropTypes>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
+        <Reference Include="Microsoft.VisualStudio.ComponentModelHost" />
+        <Reference Include="Microsoft.VisualStudio.Composition" />
+        <Reference Include="Microsoft.VisualStudio.Composition.Configuration" />
+        <Reference Include="Microsoft.VisualStudio.Designer.Interfaces">
+          <EmbedInteropTypes>true</EmbedInteropTypes>
+        </Reference>
+      </ItemGroup>
+
+      <ItemGroup>
+        <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+        <PackageReference Include="Microsoft.Composition" Version="1.0.31" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
 
   <Choose>
     <When Condition="'$(IncludeCommonReferences)' == 'true'">
@@ -448,22 +449,68 @@ SOFTWARE.</LicenseFileText>
     </When>
   </Choose>
 
+  <!-- 
+    Defining this target will disable the new SDK behavior of implicit transitive project
+    references. This is a fine feature in general but the current implementation breaks VSIX 
+    construction by including a number of projects that should not be included. 
+    https://github.com/dotnet/sdk/issues/1366
+  -->
+  <Target Name="IncludeTransitiveProjectReferences" >
+  </Target>
+
   <Choose>
     <When Condition="'$(IncludeVSEditorReferences)' == 'true'">
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.Editor" />
-        <Reference Include="Microsoft.VisualStudio.Editor.Implementation" />
-        <Reference Include="Microsoft.VisualStudio.Language.Intellisense" />
-        <Reference Include="Microsoft.VisualStudio.Language.StandardClassification" />
-        <Reference Include="Microsoft.VisualStudio.Platform.VSEditor" />
-        <Reference Include="Microsoft.VisualStudio.Text.Data" />
-        <Reference Include="Microsoft.VisualStudio.Text.Logic" />
-        <Reference Include="Microsoft.VisualStudio.Text.UI" />
-        <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf" />
-        <Reference Include="Microsoft.VisualStudio.Language.NavigateTo.Interfaces" />
-        <Reference Include="Microsoft.VisualStudio.Package.LanguageService.15.0" />
-        <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
-        <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0" />
+        <PackageReference Include="VSLangProj" Version="7.0.3300" />
+        <PackageReference Include="VSLangProj2" Version="7.0.5000" />
+        <PackageReference Include="VSLangProj80" Version="8.0.50727" />
+        <PackageReference Include="VSLangProj90" Version="9.0.30729" />
+        <PackageReference Include="VSLangProj100" Version="10.0.30319" />
+        <PackageReference Include="VSLangProj110" Version="11.0.61030" />
+
+        <PackageReference Include="EnvDTE" Version="8.0.1" />
+        <PackageReference Include="EnvDTE80" Version="8.0.1" />
+        <PackageReference Include="EnvDTE90" Version="9.0.1" />
+        <PackageReference Include="Microsoft.VisualStudio.ComponentModelHost" Version="$(MicrosoftVisualStudioComponentModelHostVersion)"/>
+        <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="$(MicrosoftVisualStudioCoreUtilityVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Data.Core" Version="$(MicrosoftVisualStudioDataCoreVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Data.Services" Version="$(MicrosoftVisualStudioDataServicesVersion)" />
+        
+        <PackageReference Include="Microsoft.VisualStudio.DataTools.Interop" Version="$(MicrosoftVisualStudioDataToolsInteropVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Diagnostics.PerformanceProvider" Version="$(MicrosoftVisualStudioDiagnosticsPerformanceProviderVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Designer.Interfaces" Version="$(MicrosoftVisualStudioDesignerInterfacesVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.GraphModel" Version="$(MicrosoftVisualStudioGraphModelVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Editor" Version="$(MicrosoftVisualStudioEditorVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.ImageCatalog" Version="$(MicrosoftVisualStudioImageCatalogVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="$(MicrosoftVisualStudioImagingInterop140DesignTimeVersion)"/>
+        <PackageReference Include="Microsoft.VisualStudio.ManagedInterfaces" Version="$(MicrosoftVisualStudioManagedInterfacesVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="$(MicrosoftVisualStudioTextDataVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Text.Logic" Version="$(MicrosoftVisualStudioTextLogicVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Text.UI" Version="$(MicrosoftVisualStudioTextUIVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Text.UI.Wpf" Version="$(MicrosoftVisualStudioTextUIWpfVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.10.0" Version="$(MicrosoftVisualStudioTextManagerInterop10Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.0" Version="$(MicrosoftVisualStudioTextManagerInterop12Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime" Version="$(MicrosoftVisualStudioTextManagerInterop121DesignTimeVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Threading" Version="$(MicrosoftVisualStudioThreadingVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="$(MicrosoftVisualStudioThreadingAnalyzersVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.9.0" Version="$(MicrosoftVisualStudioShellInterop9Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.10.0" Version="$(MicrosoftVisualStudioShellInterop10Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.11.0" Version="$(MicrosoftVisualStudioShellInterop11Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.12.1.DesignTime" Version="$(MicrosoftVisualStudioShellInterop121DesignTimeVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime" Version="$(MicrosoftVisualStudioShellInterop140DesignTimeVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime" Version="$(MicrosoftVisualStudioShellInterop150DesignTimeVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime" Version="$(MicrosoftVisualStudioShellInterop153DesignTimeVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Design" Version="$(MicrosoftVisualStudioShellDesignVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="$(MicrosoftVisualStudioShell15Version)" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="$(MicrosoftVisualStudioShellFrameworkVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Telemetry" Version="$(MicrosoftVisualStudioTelemetryVersion)" ExcludeAssets="Build" />
+        <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="$(MicrosoftVisualStudioUtilitiesVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.Validation" Version="$(MicrosoftVisualStudioValidationVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.VSHelp" Version="$(MicrosoftVisualStudioVsHelpVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.XmlEditor" Version="$(MicrosoftVisualStudioXmlEditorVersion)" />
+        <PackageReference Include="Microsoft.VisualStudio.WCFReference.Interop" Version="$(MicrosoftVisualStudioWCFReferenceInteropVersion)" />
+        <PackageReference Include="Microsoft.VSDesigner" Version="$(MicrosoftVsDesignerVersion)" />
+        <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonVersion)" />
       </ItemGroup>
     </When>
   </Choose>
@@ -471,7 +518,7 @@ SOFTWARE.</LicenseFileText>
   <Choose>
     <When Condition="'$(IncludeVSPackageReferences)' == 'true'">
       <ItemGroup>
-        
+
         <!-- Framework -->
         <Reference Include="System.Data" />
         <Reference Include="System.Drawing" />
@@ -612,5 +659,5 @@ SOFTWARE.</LicenseFileText>
       </ItemGroup>
     </When>
   </Choose>
-  
+
 </Project>

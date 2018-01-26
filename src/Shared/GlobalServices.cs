@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using EnvDTE80;
+
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -35,6 +37,15 @@ namespace Microsoft.VisualStudio
             get
             {
                 return GetService<SDTE, DTE2>();
+            }
+        }
+
+
+        public static EnvDTE.SelectedItem SelectedItem
+        {
+            get
+            {
+                return DTE2.SelectedItems.Item(1);
             }
         }
 

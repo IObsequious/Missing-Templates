@@ -16,6 +16,23 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RestoreSources>
+      $(RestoreSources);
+      https://api.nuget.org/v3/index.json;
+      https://www.myget.org/F/ollon-buildtools/api/v3/index.json;
+      https://powershell.myget.org/F/powershell-core/api/v3/index.json;
+      https://dotnet.myget.org/F/dotnet-core/api/v3/index.json;
+      http://www.myget.org/F/vs-devcore/api/v3/index.json;
+      https://dotnet.myget.org/F/msbuild/api/v3/index.json;
+      https://dotnet.myget.org/F/nuget-build/api/v3/index.json;
+      https://dotnet.myget.org/F/roslyn/api/v3/index.json;
+      https://dotnet.myget.org/F/roslyn-analyzers/api/v3/index.json;
+      https://dotnet.myget.org/F/roslyn-tools/api/v3/index.json;
+      https://dotnet.myget.org/F/templating/api/v3/index.json;
+    </RestoreSources>
+  </PropertyGroup>
+
   <!--                              -->
   <!--   Nuget Minimum Capabilities -->
   <!--                              -->
@@ -52,7 +69,7 @@ Copyright (c) Ollon, LLC. All rights reserved.
 
     <Configuration>Debug</Configuration>
     <Platform>AnyCPU</Platform>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -116,8 +133,8 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <VisualStudioVersionMinor Condition="'$(VisualStudioVersionMinor)' == ''">4</VisualStudioVersionMinor>
     <BuildNumber>0</BuildNumber>
     <RevisionNumber>0</RevisionNumber>
-    <BuildVersion>1.0.0.0</BuildVersion>
-    <AssemblyBuildVersion>1.0.0.0</AssemblyBuildVersion>
+    <BuildVersion>2.0.0.0</BuildVersion>
+    <AssemblyBuildVersion>2.0.0.0</AssemblyBuildVersion>
   </PropertyGroup>
 
 
@@ -143,7 +160,7 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">true</CopyLocalLockFileAssemblies>
     <Authors Condition="'$(Authors)'==''">Brad R. Marshall</Authors>
     <Company Condition="'$(Company)'==''">Ollon, LLC</Company>
-    <Copyright Condition="'$(Copyright)'==''">Ã‚Â© $([System.DateTime]::Now.Year) $(Company). All Rights Reserved.</Copyright>
+    <Copyright Condition="'$(Copyright)'==''">%A9 $([System.DateTime]::Now.Year) $(Company). All Rights Reserved.</Copyright>
     <Description Condition="'$(Description)'==''">$(AssemblyName)</Description>
     <Product Condition="'$(Product)'==''">$(AssemblyName)</Product>
     <AssemblyTitle Condition="'$(AssemblyTitle)'==''">$(AssemblyName)</AssemblyTitle>
@@ -188,6 +205,76 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <PowerShellCopyright Condition="'$(Copyright)' != ''">$(Copyright)</PowerShellCopyright>
     <PowerShellCmdletsToExport Condition="'$(PowerShellCmdletsToExport)' == ''">%2A</PowerShellCmdletsToExport>
     <PowerShellAliasesToExport Condition="'$(PowerShellAliasesToExport)' == ''">%2A</PowerShellAliasesToExport>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+
+    <PreReleaseVersionLabel>beta1</PreReleaseVersionLabel>
+    
+    <!-- VS SDK -->
+    <MicrosoftVisualStudioComponentModelHostVersion>15.0.26606</MicrosoftVisualStudioComponentModelHostVersion>
+    <MicrosoftVisualStudioCoreUtilityVersion>15.0.26606</MicrosoftVisualStudioCoreUtilityVersion>
+    <MicrosoftVisualStudioDataCoreVersion>9.0.21022</MicrosoftVisualStudioDataCoreVersion>
+    <MicrosoftVisualStudioDataDesignCommonVersion>15.0.26606-alpha</MicrosoftVisualStudioDataDesignCommonVersion>
+    <MicrosoftVisualStudioDataServicesVersion>9.0.21022</MicrosoftVisualStudioDataServicesVersion>
+    <MicrosoftVisualStudioDataToolsInteropVersion>15.0.26606-alpha</MicrosoftVisualStudioDataToolsInteropVersion>
+    <MicrosoftVisualStudioDesignerInterfacesVersion>1.1.4322</MicrosoftVisualStudioDesignerInterfacesVersion>
+    <MicrosoftVisualStudioDiagnosticsPerformanceProviderVersion>15.0.26606-alpha</MicrosoftVisualStudioDiagnosticsPerformanceProviderVersion>
+    <MicrosoftVisualStudioEditorVersion>15.0.26606</MicrosoftVisualStudioEditorVersion>
+    <MicrosoftVisualStudioGraphModelVersion>15.0.26606-alpha</MicrosoftVisualStudioGraphModelVersion>
+    <MicrosoftVisualStudioImageCatalogVersion>15.0.26606</MicrosoftVisualStudioImageCatalogVersion>
+    <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.25407</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
+    <MicrosoftVisualStudioManagedInterfacesVersion>8.0.50727</MicrosoftVisualStudioManagedInterfacesVersion>
+    <MicrosoftVisualStudioTelemetryVersion>15.3.799-masterDDDBA9E4</MicrosoftVisualStudioTelemetryVersion>
+    <MicrosoftVisualStudioTextDataVersion>15.0.26606</MicrosoftVisualStudioTextDataVersion>
+    <MicrosoftVisualStudioTextUIVersion>15.0.26606</MicrosoftVisualStudioTextUIVersion>
+    <MicrosoftVisualStudioTextUIWpfVersion>15.0.26606</MicrosoftVisualStudioTextUIWpfVersion>
+    <MicrosoftVisualStudioTextLogicVersion>15.0.26606</MicrosoftVisualStudioTextLogicVersion>
+    <MicrosoftVisualStudioTextManagerInterop9Version>9.0.30729</MicrosoftVisualStudioTextManagerInterop9Version>
+    <MicrosoftVisualStudioTextManagerInterop10Version>10.0.30319</MicrosoftVisualStudioTextManagerInterop10Version>
+    <MicrosoftVisualStudioTextManagerInterop12Version>12.0.30110</MicrosoftVisualStudioTextManagerInterop12Version>
+    <MicrosoftVisualStudioTextManagerInterop121DesignTimeVersion>12.1.30328</MicrosoftVisualStudioTextManagerInterop121DesignTimeVersion>
+    <MicrosoftVisualStudioShell15Version>15.0.26606</MicrosoftVisualStudioShell15Version>
+    <MicrosoftVisualStudioShellDesignVersion>15.0.26606</MicrosoftVisualStudioShellDesignVersion>
+    <MicrosoftVisualStudioShellFrameworkVersion>15.0.26606</MicrosoftVisualStudioShellFrameworkVersion>
+    <MicrosoftVisualStudioShellInterop9Version>9.0.30729</MicrosoftVisualStudioShellInterop9Version>
+    <MicrosoftVisualStudioShellInterop10Version>10.0.30319</MicrosoftVisualStudioShellInterop10Version>
+    <MicrosoftVisualStudioShellInterop11Version>11.0.61030</MicrosoftVisualStudioShellInterop11Version>
+    <MicrosoftVisualStudioShellInterop121DesignTimeVersion>12.1.30328</MicrosoftVisualStudioShellInterop121DesignTimeVersion>
+    <MicrosoftVisualStudioShellInterop140DesignTimeVersion>14.3.25407</MicrosoftVisualStudioShellInterop140DesignTimeVersion>
+    <MicrosoftVisualStudioShellInterop150DesignTimeVersion>15.0.26201</MicrosoftVisualStudioShellInterop150DesignTimeVersion>
+    <MicrosoftVisualStudioShellInterop153DesignTimeVersion>15.0.26606</MicrosoftVisualStudioShellInterop153DesignTimeVersion>
+    <MicrosoftVisualStudioTemplateWizardInterfaceVersion>8.0.0-alpha</MicrosoftVisualStudioTemplateWizardInterfaceVersion>
+    <MicrosoftVisualStudioThreadingVersion>15.5.13-beta</MicrosoftVisualStudioThreadingVersion>
+    <MicrosoftVisualStudioThreadingAnalyzersVersion>15.5.13-beta</MicrosoftVisualStudioThreadingAnalyzersVersion>
+    <MicrosoftVisualStudioProjectSystemAnalyzersVersion>15.3.224</MicrosoftVisualStudioProjectSystemAnalyzersVersion>
+    <MicrosoftVisualStudioUtilitiesVersion>15.0.26607</MicrosoftVisualStudioUtilitiesVersion>
+    <MicrosoftVisualStudioValidationVersion>15.3.32</MicrosoftVisualStudioValidationVersion>
+    <MicrosoftVisualStudioVsHelpVersion>15.0.26606-alpha</MicrosoftVisualStudioVsHelpVersion>
+    <MicrosoftVisualStudioWCFReferenceInteropVersion>9.0.30729</MicrosoftVisualStudioWCFReferenceInteropVersion>
+    <MicrosoftVisualStudioXmlEditorVersion>15.0.26606-alpha</MicrosoftVisualStudioXmlEditorVersion>
+    <MicrosoftVsDesignerVersion>15.0.26606-alpha</MicrosoftVsDesignerVersion>
+    <VsWebSiteInteropVersion>8.0.0-alpha</VsWebSiteInteropVersion>
+
+    <!-- CPS -->
+    <MicrosoftVisualStudioProjectSystemSDKVersion>15.6.128-pre</MicrosoftVisualStudioProjectSystemSDKVersion>
+
+    <!-- Roslyn -->
+    <MicrosoftVisualStudioLanguageServicesVersion>2.6.0-beta1-62113-02</MicrosoftVisualStudioLanguageServicesVersion>
+    <MicrosoftVisualStudioIntegrationTestUtilitiesVersion>2.6.0-beta1-62113-02</MicrosoftVisualStudioIntegrationTestUtilitiesVersion>
+    <RoslynIntegrationVsixVersion>2.6.0.6211302</RoslynIntegrationVsixVersion>
+    <MicrosoftNetRoslynDiagnosticsVersion>2.6.0-beta1-62322-01</MicrosoftNetRoslynDiagnosticsVersion>
+
+    <!-- NuGet -->
+    <NuGetSolutionRestoreManagerInteropVersion>4.3.0</NuGetSolutionRestoreManagerInteropVersion>
+    <NuGetVisualStudioVersion>4.3.0</NuGetVisualStudioVersion>
+
+    <!-- Msbuild -->
+    <MicrosoftBuildVersion>15.6.0-preview-000010-1174357</MicrosoftBuildVersion>
+
+    <!-- Libs -->
+    <NewtonsoftJsonVersion>9.0.1</NewtonsoftJsonVersion>
   </PropertyGroup>
 
 </Project>

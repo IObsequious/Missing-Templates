@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="TemplateWizard\UI\VsColors.cs" />
     <Compile Include="TemplateWizard\VSIXProjectTemplateWizard.cs" />
+    <Compile Include="TemplateWizard\VSPackageTemplateWizard.cs" />
     <Compile Include="TemplateWizard\WizardBase.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+
 using Microsoft.VisualStudio.TemplateWizard.UI;
 
 namespace Microsoft.VisualStudio.TemplateWizard
@@ -16,6 +17,29 @@ namespace Microsoft.VisualStudio.TemplateWizard
 
             string projectName = replacementsDictionary["$safeprojectname$"];
 
+            string targetFramework = "net47";
+            string targetFrameworkVersion = replacementsDictionary["$targetframeworkversion$"];
+
+            switch (targetFrameworkVersion)
+            {
+                case "v4.5":
+                    targetFramework = "net45";
+                    break;
+                case "v4.5.2":
+                    targetFramework = "net452";
+                    break;
+                case "v4.6":
+                    targetFramework = "net46";
+                    break;
+                case "v4.7":
+                    targetFramework = "net47";
+                    break;
+                case "v4.7.1":
+                    targetFramework = "net471";
+                    break;
+            }
+
+
             infra.ViewModel.AssemblyName = projectName;
             infra.ViewModel.DefaultNamespace = projectName;
 
@@ -27,6 +51,7 @@ namespace Microsoft.VisualStudio.TemplateWizard
 
                 replacementsDictionary["$AssemblyName$"] = model.AssemblyName;
                 replacementsDictionary["$DefaultNamespace$"] = model.DefaultNamespace;
+                replacementsDictionary["$TargetFramework$"] = targetFramework;
             }
         }
     }

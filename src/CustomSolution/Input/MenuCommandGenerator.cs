@@ -33,8 +33,11 @@ namespace Microsoft.VisualStudio.Input
         public const int IDM_SOLUTION = 1;
         public const int IDG_SOLUTION = 1;
         public const int IDG_OPEN_OUTPUT = 2;
+        public const int IDG_ADJUST_NAMESPACE = 3;
         public const int cmdidNewSolution = 256;
         public const int cmdidOpenOutput = 257;
+        public const int cmdidOpenIntOutput = 258;
+        public const int cmdidAdjustNamespace = 259;
     }
     /// <summary>
     /// Represents the <see cref="Commands"/> class.
@@ -43,6 +46,7 @@ namespace Microsoft.VisualStudio.Input
     {
         public static CommandID cmdidNewSolutionCommandId = new CommandID(GuidSymbols.guidPackageCmdSet, IDSymbols.cmdidNewSolution);
         public static CommandID cmdidOpenOutputCommandId = new CommandID(GuidSymbols.guidPackageCmdSet, IDSymbols.cmdidOpenOutput);
+        public static CommandID cmdidOpenIntOutputCommandId = new CommandID(GuidSymbols.guidPackageCmdSet, IDSymbols.cmdidOpenIntOutput);
     }
     /// <summary>
     ///  Serves as the abstract base for classes that handle commands.
@@ -71,6 +75,14 @@ namespace Microsoft.VisualStudio.Input
         public virtual void OnExecuteCmdidOpenOutput(object sender, EventArgs e)
         {
         }
+        /// <summary>
+        /// When overridden in a derived class, handles the cmdidOpenIntOutput command.
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/> initiating the command.</param>
+        /// <param name="e">The <see cref="EventArgs"/> that will ultimately handle the command.</param>
+        public virtual void OnExecuteCmdidOpenIntOutput(object sender, EventArgs e)
+        {
+        }
     }
     /// <summary>
     ///  Entry point for handling commands.
@@ -92,6 +104,7 @@ namespace Microsoft.VisualStudio.Input
         {
             RegisterCommand(service, Commands.cmdidNewSolutionCommandId, handler.OnExecuteCmdidNewSolution);
             RegisterCommand(service, Commands.cmdidOpenOutputCommandId, handler.OnExecuteCmdidOpenOutput);
+            RegisterCommand(service, Commands.cmdidOpenIntOutputCommandId, handler.OnExecuteCmdidOpenIntOutput);
         }
         /// <summary>
         /// Registers a command.

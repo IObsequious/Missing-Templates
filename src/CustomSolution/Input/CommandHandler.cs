@@ -8,55 +8,230 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using EnvDTE;
+
 using EnvDTE90;
+
+using Microsoft.Build.Evaluation;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.ProjectSystem;
+using Microsoft.VisualStudio.ProjectSystem.Properties;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace Microsoft.VisualStudio.Input
 {
     internal partial class CommandHandler
     {
+        private VisualStudioWorkspace _workspace;
 
+        //public override void OnExecuteCmdidAdjustNamespace(object sender, EventArgs e)
+        //{
+        //    _workspace = GlobalServices.GetComponentModelService<VisualStudioWorkspace>();
+        //    OnExecuteOnExecuteCmdidAdjustNamespaceAsync(new CancellationToken());
+        //}
+
+
+        private async System.Threading.Tasks.Task OnExecuteOnExecuteCmdidAdjustNamespaceAsync(CancellationToken cancellationToken)
+        {
+
+
+            var selectedItem = GlobalServices.DTE2.SelectedItems.Item(1);
+
+            if (selectedItem.Project != null)
+            {
+                string projectName = selectedItem.Project.Name;
+
+
+
+                Microsoft.CodeAnalysis.Project project = _workspace.CurrentSolution.Projects.FirstOrDefault(p => p.Name == projectName);
+                if (project != null)
+                {
+
+                }
+            }
+        }
+
+        public override void OnExecuteCmdidOpenIntOutput(object sender, EventArgs e)
+        {
+            ProcessOpenOutput("IntermediateOutputPath");
+        }
 
         public override void OnExecuteCmdidOpenOutput(object sender, EventArgs e)
         {
-            //Get the active projects within the solution.
-            Array _activeProjects = (Array)GlobalServices.DTE2.ActiveSolutionProjects;
+            ProcessOpenOutput("OutputPath");
+        }
 
-            //loop through each active project
-            foreach (Project _activeProject in _activeProjects)
+
+        private void ProcessOpenOutput(string propertyName)
+        {
+            EnvDTE.Project envdteProject = GlobalServices.SelectedItem.Project;
+            if (envdteProject != null)
             {
-                //get the directory path based on the project file.
-                string _projectPath = Path.GetDirectoryName(_activeProject.FullName);
-
-                //get the output path based on the active configuration
-                Dictionary<string, object> Properties = new Dictionary<string, object>();
-                foreach (Property property in _activeProject.ConfigurationManager.ActiveConfiguration.Properties)
+                GlobalServices.Solution.GetProjectOfUniqueName(envdteProject.UniqueName, out var hierarchy);
+                if (hierarchy.IsCpsProject())
                 {
-                    Properties[property.Name] = property.Value;
-                }
-                string _projectOutputPath =
-                    _activeProject.ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value.ToString();
+                    UnconfiguredProject unconfiguredProject = GetUnconfiguredProject((IVsProject)hierarchy);
 
-                //combine the project path and output path to get the bin path
-                string _projectBinPath = Path.Combine(_projectPath, _projectOutputPath);
+                    IProjectLockService lockService = unconfiguredProject.ProjectService.Services.ProjectLockService;
 
-                //if the directory exists (already built) then open that directory
-                //in windows explorer using the diagnostics.process object
-                if (Directory.Exists(_projectBinPath))
-                {
-                    System.Diagnostics.Process.Start(_projectBinPath);
+                    ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+                    {
+                        await OpenOutputAsync(propertyName, unconfiguredProject, lockService).ConfigureAwait(false);
+                    });
                 }
                 else
                 {
-                    //if the directory doesnt exist, open the project directory.
-                    System.Diagnostics.Process.Start(_projectPath);
+                    ProjectCollection collection = ProjectCollection.GlobalProjectCollection;
+
+                    Microsoft.Build.Evaluation.Project currentProject = collection.LoadProject(envdteProject.FullName);
+
+                    Microsoft.Build.Execution.ProjectInstance instance = currentProject.CreateProjectInstance(Build.Execution.ProjectInstanceSettings.ImmutableWithFastItemLookup);
+
+                    var property = instance.GetPropertyValue(propertyName);
+
+                    if (Directory.Exists(property))
+                    {
+                        System.Diagnostics.Process.Start(property);
+                    }
+                    else
+                    {
+                        Microsoft.VisualStudio.PlatformUI.MessageDialog.Show(
+                            "Error",
+                            $"Could not determine the value of the {propertyName} through msbuild with legacy project {envdteProject.Name}.",
+                            MessageDialogCommandSet.Ok);
+
+                    }
+
+                    //string projectDirectory = Path.GetDirectoryName(envdteProject.FullName);
+
+                    //string projectOutputPath =
+                    //        envdteProject.ConfigurationManager.ActiveConfiguration.Properties.Item(propertyName).Value.ToString();
+
+                    //string fullPath = Path.Combine(projectDirectory, projectOutputPath);
+
+                    //if (Directory.Exists(fullPath))
+                    //{
+                    //    System.Diagnostics.Process.Start(fullPath);
+                    //}
+                    //else
+                    //{
+                    //    //if the directory doesnt exist, open the project directory.
+                    //    System.Diagnostics.Process.Start(projectDirectory);
+                    //}
+
+
                 }
             }
+        }
+
+        //public override void OnExecuteCmdidOpenOutput(object sender, EventArgs e)
+        //{
+        //    Project project = GlobalServices.DTE2.SelectedItems?.Item(1)?.Project;
+        //    if (project != null)
+        //    {
+        //        GlobalServices.Solution.GetProjectOfUniqueName(project.UniqueName, out var hierarchy);
+
+        //        if (hierarchy.IsCpsProject())
+        //        {
+        //            UnconfiguredProject unconfiguredProject = GetUnconfiguredProject((IVsProject)hierarchy);
+
+        //            IProjectLockService lockService = unconfiguredProject.ProjectService.Services.ProjectLockService;
+
+        //            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        //            {
+        //                await OpenOutputAsync("OutputPath", unconfiguredProject, lockService);
+
+
+        //            });
+        //        }
+        //        else
+        //        {
+
+        //            //Get the active projects within the solution.
+        //            Array _activeProjects = (Array)GlobalServices.DTE2.ActiveSolutionProjects;
+
+        //            //loop through each active project
+        //            foreach (Project _activeProject in _activeProjects)
+        //            {
+        //                //get the directory path based on the project file.
+        //                string _projectPath = Path.GetDirectoryName(_activeProject.FullName);
+
+        //                //get the output path based on the active configuration
+        //                //Dictionary<string, object> Properties = new Dictionary<string, object>();
+        //                //foreach (Property property in _activeProject.ConfigurationManager.ActiveConfiguration.Properties)
+        //                //{
+        //                //    Properties[property.Name] = property.Value;
+        //                //}
+        //                string _projectOutputPath =
+        //                    _activeProject.ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value.ToString();
+
+        //                //combine the project path and output path to get the bin path
+        //                string _projectBinPath = Path.Combine(_projectPath, _projectOutputPath);
+
+        //                //if the directory exists (already built) then open that directory
+        //                //in windows explorer using the diagnostics.process object
+        //                if (Directory.Exists(_projectBinPath))
+        //                {
+        //                    System.Diagnostics.Process.Start(_projectBinPath);
+        //                }
+        //                else
+        //                {
+        //                    //if the directory doesnt exist, open the project directory.
+        //                    System.Diagnostics.Process.Start(_projectPath);
+        //                }
+        //            }
+        //        }
+        //    }
+
+
+
+        //}
+
+        private async System.Threading.Tasks.Task OpenOutputAsync(string propertyName, UnconfiguredProject unconfiguredProject, IProjectLockService lockService)
+        {
+            DirectoryInfo outputPath = await GetFolderPath(propertyName, unconfiguredProject, lockService).ConfigureAwait(false);
+
+            while (!outputPath.Exists)
+            {
+                outputPath = outputPath.Parent;
+            }
+
+            System.Diagnostics.Process.Start("explorer.exe", outputPath.FullName);
+        }
+
+
+        private async Task<DirectoryInfo> GetFolderPath(string propertyName, UnconfiguredProject unconfiguredProject, IProjectLockService lockService)
+        {
+            string retVal = string.Empty;
+
+            ConfiguredProject configuredProject = unconfiguredProject.Services.ActiveConfiguredProjectProvider.ActiveConfiguredProject;
+
+
+            using (ProjectWriteLockReleaser access = await lockService.WriteLockAsync())
+            {
+                Microsoft.Build.Evaluation.Project project = await access.GetProjectAsync(configuredProject).ConfigureAwait(false);
+                //Microsoft.Build.Execution.ProjectInstance instance = project.CreateProjectInstance();
+
+                retVal = project.GetPropertyValue(propertyName);
+
+                // party on it, respecting the type of lock you've acquired. 
+
+                // If you're going to change the project in any way, 
+                // check it out from SCC first:
+                //await access.CheckoutAsync(ConfiguredProject.UnconfiguredProject.FullPath);
+            }
+
+            return new DirectoryInfo(retVal);
         }
 
         private string RepositoryDirectory { get; set; }
@@ -110,14 +285,14 @@ namespace Microsoft.VisualStudio.Input
                 Guid guid = new Guid("FAE04EC0-301F-11D3-BF4B-00C04F79EFBC");
                 Guid nguid = Guid.NewGuid();
 
-                
+
 
 
                 Solution3 solution3 = GlobalServices.DTE2.Solution as Solution3;
 
-                Project buildFolder =  solution3.AddSolutionFolder("Build");
-                Project commonFolder = solution3.AddSolutionFolder("Common");
-                Project visualStudio = solution3.AddSolutionFolder("VisualStudio");
+                EnvDTE.Project buildFolder = solution3.AddSolutionFolder("Build");
+                EnvDTE.Project commonFolder = solution3.AddSolutionFolder("Common");
+                EnvDTE.Project visualStudio = solution3.AddSolutionFolder("VisualStudio");
 
                 buildFolder.ProjectItems.AddFromFile(Path.Combine(SrcDirectory, "Directory.Build.props"));
                 buildFolder.ProjectItems.AddFromFile(Path.Combine(SrcDirectory, "Directory.Build.targets"));
@@ -156,6 +331,40 @@ namespace Microsoft.VisualStudio.Input
 
             }
             return retVal;
+        }
+
+        private UnconfiguredProject GetUnconfiguredProject(IVsProject project)
+        {
+            IVsBrowseObjectContext context = project as IVsBrowseObjectContext;
+            if (context == null)
+            { // VC implements this on their DTE.Project.Object
+                IVsHierarchy hierarchy = project as IVsHierarchy;
+                if (hierarchy != null)
+                {
+                    object extObject;
+                    if (ErrorHandler.Succeeded(hierarchy.GetProperty((uint)VSConstants.VSITEMID.Root, (int)__VSHPROPID.VSHPROPID_ExtObject, out extObject)))
+                    {
+                        EnvDTE.Project dteProject = extObject as EnvDTE.Project;
+                        if (dteProject != null)
+                        {
+                            context = dteProject.Object as IVsBrowseObjectContext;
+                        }
+                    }
+                }
+            }
+
+            return context != null ? context.UnconfiguredProject : null;
+        }
+
+        private UnconfiguredProject GetUnconfiguredProject(EnvDTE.Project project)
+        {
+            IVsBrowseObjectContext context = project as IVsBrowseObjectContext;
+            if (context == null && project != null)
+            { // VC implements this on their DTE.Project.Object
+                context = project.Object as IVsBrowseObjectContext;
+            }
+
+            return context != null ? context.UnconfiguredProject : null;
         }
     }
 

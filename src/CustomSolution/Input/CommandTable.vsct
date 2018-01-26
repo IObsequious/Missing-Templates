@@ -18,6 +18,7 @@
     <Groups>
       <Group guid="guidPackageGroups" id="IDG_SOLUTION" priority="0x0000" />
       <Group guid="guidPackageGroups" id="IDG_OPEN_OUTPUT" priority="0x0000" />
+      <Group guid="guidPackageGroups" id="IDG_ADJUST_NAMESPACE" priority="0x0000" />
     </Groups>
     <Buttons>
       <Button guid="guidPackageCmdSet" id="cmdidNewSolution" priority="0x0000" type="Button">
@@ -36,6 +37,22 @@
           <ButtonText>Open Output Directory</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidPackageCmdSet" id="cmdidOpenIntOutput" priority="0x0000" type="Button">
+        <Icon guid="ImageCatalogGuid" id="OpenFolder"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <Strings>
+          <ButtonText>Open Intermediate Output</ButtonText>
+        </Strings>
+      </Button>
+      <!--<Button guid="guidPackageCmdSet" id="cmdidAdjustNamespace" priority="0x0000" type="Button">
+        <Icon guid="ImageCatalogGuid" id="AdvancedProductionBreakpointOK"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <Strings>
+          <ButtonText>Adjust Namespace!</ButtonText>
+        </Strings>
+      </Button>-->
     </Buttons>
 
   </Commands>
@@ -44,8 +61,25 @@
     <CommandPlacement guid="guidPackageCmdSet" id="cmdidOpenOutput" priority="0x0001">
       <Parent guid="guidPackageGroups" id="IDG_OPEN_OUTPUT"/>
     </CommandPlacement>
+    <CommandPlacement guid="guidPackageCmdSet" id="cmdidOpenIntOutput" priority="0x0002">
+      <Parent guid="guidPackageGroups" id="IDG_OPEN_OUTPUT"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidPackageCmdSet" id="cmdidAdjustNamespace" priority="0x0001">
+      <Parent guid="guidPackageGroups" id="IDG_ADJUST_NAMESPACE"/>
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidPackageCmdSet" id="cmdidOpenOutput" priority="0x005D">
+      <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_OPEN"/>
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidPackageGroups" id="IDG_ADJUST_NAMESPACE" priority="0x0001">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidPackageGroups" id="IDG_ADJUST_NAMESPACE" priority="0x0001">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+    </CommandPlacement>
+    
     <CommandPlacement guid="guidPackageGroups" id="IDG_OPEN_OUTPUT" priority="0x0001">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
     </CommandPlacement>
@@ -74,11 +108,14 @@
     <GuidSymbol name="guidPackageGroups" value="{B0412A25-EDCE-41A2-8F87-9A3B562AA858}">
       <IDSymbol name="IDG_SOLUTION" value="0x0001"/>
       <IDSymbol name="IDG_OPEN_OUTPUT" value="0x0002"/>
+      <IDSymbol name="IDG_ADJUST_NAMESPACE" value="0x0003"/>
     </GuidSymbol>
     
     <GuidSymbol name="guidPackageCmdSet" value="{11479980-4e78-473f-8fce-7988501f8914}">
       <IDSymbol name="cmdidNewSolution" value="0x0100" />
       <IDSymbol name="cmdidOpenOutput" value="0x0101" />
+      <IDSymbol name="cmdidOpenIntOutput" value="0x0102" />
+      <IDSymbol name="cmdidAdjustNamespace" value="0x0103"/>
     </GuidSymbol>
 
 

@@ -1,11 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TemplateWizard.UI;
+
 using EnvDTE;
+
+using Microsoft.VisualStudio.TemplateWizard.UI;
 
 namespace Microsoft.VisualStudio.TemplateWizard
 {
@@ -53,7 +55,7 @@ namespace Microsoft.VisualStudio.TemplateWizard
             sb.AppendLine(@"<?xml version=""1.0"" encoding=""utf-8""?>");
             sb.AppendLine(@"<PackageManifest Version=""2.0.0"" xmlns=""http://schemas.microsoft.com/developer/vsx-schema/2011"" xmlns:d=""http://schemas.microsoft.com/developer/vsx-schema-design/2011"">");
             sb.AppendLine(@"    <Metadata>");
-            sb.AppendLine($@"        <Identity Id=""{id}"" Version=""1.0"" Language=""en-US"" Publisher=""{org ?? "CompanyName"}"" />");
+            sb.AppendLine($@"        <Identity Id=""{id}"" Version=""1.0"" Language=""en-US"" Publisher=""Ollon"" />");
             sb.AppendLine($@"        <DisplayName>{extensionName}</DisplayName>");
             sb.AppendLine($@"        <Description xml:space=""preserve"">{extensionName} extension for Microsoft Visual Studio</Description>");
             sb.AppendLine(@"    </Metadata>");

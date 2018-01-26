@@ -3,6 +3,7 @@
   <PropertyGroup>
     <IncludeWpfReferences>false</IncludeWpfReferences>
     <IncludeRoslynReferences>false</IncludeRoslynReferences>
+    <IncludeProjectSystemReferences>true</IncludeProjectSystemReferences>
     <IncludeVisualStudioReferences>true</IncludeVisualStudioReferences>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -52,6 +53,7 @@
     <Compile Include="Framework\StrongNameKeyInfo.cs" />
     <Compile Include="Framework\StrongNameUtilities.cs" />
     <Compile Include="Input\CommandHandler.cs" />
+    <Compile Include="Input\Extensions.cs" />
     <Compile Include="Input\MenuCommandGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
